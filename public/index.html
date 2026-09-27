@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ScreenShare — compartilhe sua tela</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TELA DE ENTRADA -->
+  <div id="lobby" class="lobby">
+    <div class="lobby-card">
+      <h1>🖥️ ScreenShare</h1>
+      <p class="subtitle">Compartilhamento de tela em tempo real, direto no navegador.</p>
+      <input id="nameInput" type="text" placeholder="Seu nome" maxlength="20" />
+      <input id="roomInput" type="text" placeholder="Nome da sala (ex: reuniao-time)" maxlength="30" />
+      <button id="joinBtn">Entrar na sala</button>
+      <p class="hint">Compartilhe o nome da sala com quem você quer chamar.</p>
+    </div>
+  </div>
+
+  <!-- SALA -->
+  <div id="room" class="room hidden">
+    <header class="topbar">
+      <div class="room-info">
+        <span id="roomLabel">sala</span>
+        <button id="copyLinkBtn" title="Copiar link de convite">🔗 Copiar convite</button>
+      </div>
+      <div class="controls">
+        <button id="shareBtn" class="btn primary">🖥️ Compartilhar tela</button>
+        <button id="micBtn" class="btn">🎤 Ativar mic</button>
+        <button id="leaveBtn" class="btn danger">Sair</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="videoGrid" class="video-grid"></div>
+
+      <aside class="chat">
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" type="text" placeholder="Mensagem..." autocomplete="off" />
+          <button type="submit">➤</button>
+        </form>
+      </aside>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>

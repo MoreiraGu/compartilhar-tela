@@ -1,0 +1,32 @@
+name: Build Windows App
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch: {}
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm install
+        working-directory: desktop-app
+
+      - name: Gerar instalador (.exe)
+        run: npm run dist
+        working-directory: desktop-app
+
+      - name: Publicar como Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: desktop-app/dist/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

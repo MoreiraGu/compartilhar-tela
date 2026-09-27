@@ -1,0 +1,37 @@
+{
+  "name": "screenshare-desktop",
+  "version": "1.0.0",
+  "description": "App de desktop pra compartilhar tela com amigos, usando um servidor no Render",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.screenshare.desktop",
+    "productName": "ScreenShare",
+    "files": [
+      "main.js",
+      "picker.html",
+      "picker-preload.js",
+      "public/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

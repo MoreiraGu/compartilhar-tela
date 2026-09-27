@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Escolha o que compartilhar</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    background: #2b2d31;
+    color: #f2f3f5;
+    padding: 1rem;
+  }
+  h2 { font-size: 1rem; margin-bottom: 0.8rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+  .source {
+    background: #313338;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+  }
+  .source:hover { border-color: #5865f2; }
+  .source img {
+    width: 100%;
+    border-radius: 4px;
+    background: #000;
+  }
+  .source span {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+    color: #949ba4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .actions { margin-top: 1rem; text-align: right; }
+  button {
+    background: transparent;
+    border: 1px solid #4a4d53;
+    color: #f2f3f5;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover { background: #3a3c42; }
+</style>
+</head>
+<body>
+  <h2>Escolha a tela ou janela que você quer compartilhar:</h2>
+  <div id="grid" class="grid"></div>
+  <div class="actions">
+    <button id="cancelBtn">Cancelar</button>
+  </div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    window.pickerAPI.onSources((sources) => {
+      grid.innerHTML = '';
+      sources.forEach((s) => {
+        const el = document.createElement('div');
+        el.className = 'source';
+        el.innerHTML = `<img src="${s.thumbnail}" /><span>${s.name}</span>`;
+        el.addEventListener('click', () => window.pickerAPI.select(s.id));
+        grid.appendChild(el);
+      });
+    });
+
+    cancelBtn.addEventListener('click', () => window.pickerAPI.cancel());
+  </script>
+</body>
+</html>
